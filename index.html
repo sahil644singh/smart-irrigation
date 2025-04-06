@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Irrigation Dashboard</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Smart Irrigation</h1>
+            </div>
+            <div class="user-info">
+                <span>Welcome, User</span>
+                <div class="user-avatar">U</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="dashboard">
+            <!-- Weather Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Weather</h2>
+                    <i class="fas fa-cloud-sun"></i>
+                </div>
+                <div class="weather-info">
+                    <div class="weather-main">
+                        <div class="temperature">35° C</div>
+                        <div class="weather-condition">Mostly Sunny</div>
+                    </div>
+                    <div class="weather-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                </div>
+                <div class="weather-details">
+                    <div class="weather-detail">
+                        <i class="fas fa-tint"></i>
+                        <span>Humidity: 42%</span>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-wind"></i>
+                        <span>Wind: 5 mph</span>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-cloud-rain"></i>
+                        <span>Rain chance: 10%</span>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-thermometer-half"></i>
+                        <span>Feels like: 80°</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Irrigation Zones Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Irrigation Zones</h2>
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div class="zone-grid">
+                    <div class="zone" onclick="toggleZone(this, 1)">
+                        <i class="fas fa-seedling"></i>
+                        <div>Front Yard</div>
+                    </div>
+                    <div class="zone active" onclick="toggleZone(this, 2)">
+                        <i class="fas fa-tree"></i>
+                        <div>Back Yard</div>
+                    </div>
+                    <div class="zone" onclick="toggleZone(this, 3)">
+                        <i class="fas fa-flower"></i>
+                        <div>Garden</div>
+                    </div>
+                    <div class="zone" onclick="toggleZone(this, 4)">
+                        <i class="fas fa-carrot"></i>
+                        <div>Vegetables</div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="showNotification('All zones watering started')">Water All</button>
+                    <button class="btn btn-secondary" onclick="showNotification('Watering stopped')">Stop All</button>
+                </div>
+            </div>
+
+            <!-- Soil Moisture Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Soil Moisture</h2>
+                    <i class="fas fa-water"></i>
+                </div>
+                <div class="moisture-levels">
+                    <div class="moisture-zone">
+                        <span>Front Yard</span>
+                        <div class="moisture-bar">
+                            <div class="moisture-level" style="width: 65%;"></div>
+                        </div>
+                        <span>65%</span>
+                    </div>
+                    <div class="moisture-zone">
+                        <span>Back Yard</span>
+                        <div class="moisture-bar">
+                            <div class="moisture-level" style="width: 48%;"></div>
+                        </div>
+                        <span>48%</span>
+                    </div>
+                    <div class="moisture-zone">
+                        <span>Garden</span>
+                        <div class="moisture-bar">
+                            <div class="moisture-level" style="width: 72%;"></div>
+                        </div>
+                        <span>72%</span>
+                    </div>
+                    <div class="moisture-zone">
+                        <span>Vegetables</span>
+                        <div class="moisture-bar">
+                            <div class="moisture-level" style="width: 55%;"></div>
+                        </div>
+                        <span>55%</span>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="updateMoistureLevels()">Refresh Data</button>
+                </div>
+            </div>
+
+            <!-- Water Usage Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Water Usage</h2>
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="chart-container">
+                    <canvas id="waterUsageChart" class="water-usage-chart"></canvas>
+                </div>
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="updateChart('daily')">Daily</button>
+                    <button class="btn btn-secondary" onclick="updateChart('weekly')">Weekly</button>
+                    <button class="btn btn-secondary" onclick="updateChart('monthly')">Monthly</button>
+                </div>
+            </div>
+
+            <!-- Schedule Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Schedule</h2>
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="schedule-list">
+                    <div class="schedule-item">
+                        <div>
+                            <div class="schedule-time">6:00 AM</div>
+                            <div class="schedule-zone">Front Yard, Back Yard</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="schedule-item">
+                        <div>
+                            <div class="schedule-time">5:30 PM</div>
+                            <div class="schedule-zone">Garden, Vegetables</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="schedule-item">
+                        <div>
+                            <div class="schedule-time">7:00 AM (Weekend Only)</div>
+                            <div class="schedule-zone">All Zones</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="showNotification('New schedule will be added')">Add Schedule</button>
+                </div>
+            </div>
+
+            <!-- System Status Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>System Status</h2>
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="status-items">
+                    <div class="moisture-zone">
+                        <span>Water Pressure</span>
+                        <div class="moisture-bar">
+                            <div class="moisture-level" style="width: 85%; background-color: var(--primary);"></div>
+                        </div>
+                        <span>85%</span>
+                    </div>
+                    <div class="moisture-zone">
+                        <span>Battery</span>
+                        <div class="moisture-bar">
+                            <div class="moisture-level" style="width: 62%; background-color: var(--warning);"></div>
+                        </div>
+                        <span>62%</span>
+                    </div>
+                    <div class="moisture-zone">
+                        <span>Wi-Fi Signal</span>
+                        <div class="moisture-bar">
+                            <div class="moisture-level" style="width: 95%; background-color: var(--primary);"></div>
+                        </div>
+                        <span>95%</span>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;">
+                    <div><strong>Last Update:</strong> Today, 2:45 PM</div>
+                    <div><strong>System Version:</strong> 2.3.4</div>
+                    <div><strong>Next Maintenance:</strong> 15 days</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-info-circle"></i>
+        <span id="notification-message">Action completed successfully</span>
+    </div>
+    <script src="./scripts.js">script</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+    
+</body>
+</html>
