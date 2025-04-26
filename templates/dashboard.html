@@ -1,0 +1,134 @@
+<!-- dashboard.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Irrigation Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f7;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #333;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px 30px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .label {
+      font-weight: bold;
+      color: #555;
+    }
+    .value {
+      color: #222;
+      font-size: 20px;
+      margin-top: 5px;
+    }
+    .chart-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    canvas {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Smart Irrigation System</h1>
+
+  <div class="card-container">
+    <div class="card">
+      <p class="label">Timestamp</p>
+      <p class="value">{{ data.timestamp }}</p>
+    </div>
+    <div class="card">
+      <p class="label">Temperature</p>
+      <p class="value">{{ data.temperature }} &#8451;</p>
+    </div>
+    <div class="card">
+      <p class="label">Humidity</p>
+      <p class="value">{{ data.humidity }}%</p>
+    </div>
+    <div class="card">
+      <p class="label">Soil Moisture</p>
+      <p class="value">{{ data.soil_moisture }}%</p>
+    </div>
+    <div class="card">
+      <p class="label">Weather</p>
+      <p class="value">{{ data.weather }}</p>
+    </div>
+    <div class="card">
+      <p class="label">Irrigation Zone</p>
+      <p class="value">{{ data.irrigation_zone }}</p>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="tempChart" height="300"></canvas>
+  </div>
+
+  <!-- Safely inject Django context variables -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const labels = JSON.parse('{{ labels_json|escapejs }}');
+    const temperature = JSON.parse('{{ temperature_json|escapejs }}');
+
+    const ctx = document.getElementById('tempChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Temperature (°C)',
+          data: temperature,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            title: { display: true, text: 'Date' }
+          },
+          y: {
+            beginAtZero: false,
+            title: { display: true, text: 'Temperature (°C)' }
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

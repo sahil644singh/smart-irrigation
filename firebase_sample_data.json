@@ -1,0 +1,83 @@
+  [
+    {
+      "timestamp": "2025-04-15T10:00:00Z",
+      "temperature": 29,
+      "humidity": 30,
+      "soil_moisture": 38,
+      "weather": "Sunny",
+      "irrigation_zone": "Zone A"
+    },
+    {
+      "timestamp": "2025-04-16T10:00:00Z",
+      "temperature": 30,
+      "humidity": 32,
+      "soil_moisture": 40,
+      "weather": "Cloudy",
+      "irrigation_zone": "Zone A"
+    },
+    {
+      "timestamp": "2025-04-17T10:00:00Z",
+      "temperature": 28,
+      "humidity": 35,
+      "soil_moisture": 41,
+      "weather": "Cloudy",
+      "irrigation_zone": "Zone B"
+    },
+    {
+      "timestamp": "2025-04-18T10:00:00Z",
+      "temperature": 27,
+      "humidity": 37,
+      "soil_moisture": 42,
+      "weather": "Sunny",
+      "irrigation_zone": "Zone B"
+    },
+    {
+      "timestamp": "2025-04-19T10:00:00Z",
+      "temperature": 31,
+      "humidity": 33,
+      "soil_moisture": 39,
+      "weather": "Windy",
+      "irrigation_zone": "Zone C"
+    },
+    {
+      "timestamp": "2025-04-20T10:00:00Z",
+      "temperature": 32,
+      "humidity": 29,
+      "soil_moisture": 35,
+      "weather": "Sunny",
+      "irrigation_zone": "Zone C"
+    },
+    {
+      "timestamp": "2025-04-21T10:00:00Z",
+      "temperature": 30,
+      "humidity": 34,
+      "soil_moisture": 36,
+      "weather": "Rainy",
+      "irrigation_zone": "Zone A"
+    },
+    {
+      "timestamp": "2025-04-22T10:00:00Z",
+      "temperature": 29,
+      "humidity": 36,
+      "soil_moisture": 37,
+      "weather": "Rainy",
+      "irrigation_zone": "Zone B"
+    },
+    {
+      "timestamp": "2025-04-23T10:00:00Z",
+      "temperature": 28,
+      "humidity": 31,
+      "soil_moisture": 34,
+      "weather": "Cloudy",
+      "irrigation_zone": "Zone C"
+    },
+    {
+      "timestamp": "2025-04-24T10:00:00Z",
+      "temperature": 30,
+      "humidity": 32,
+      "soil_moisture": 40,
+      "weather": "Cloudy",
+      "irrigation_zone": "Zone A"
+    }
+  ]
+  
